@@ -7,10 +7,29 @@ pipeline {
     }
 
     stages {
+
         stage('Say Hello') {
             steps {
-                echo "Hello DevOps from Jenkins Pipeline (Running inside Docker Container)!"
+                echo "Hello DevOps from Jenkins Pipeline!"
             }
         }
+
+        stage('Install Dependencies') {
+            steps {
+                dir('simple-node-app') {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                dir('simple-node-app') {
+                    sh 'npm test'
+                }
+            }
+        }
+
     }
 }
+
